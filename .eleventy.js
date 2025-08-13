@@ -8,7 +8,10 @@ module.exports = function (eleventyConfig) {
 
   // Collection of all markdown notes (newest first)
   eleventyConfig.addCollection("notes", (api) =>
-    api.getFilteredByGlob("content/**/*.md").sort((a, b) => b.date - a.date)
+    api
+      .getFilteredByGlob("content/**/*.md")
+      .filter((item) => item.inputPath !== "content/index.md")
+      .sort((a, b) => b.date - a.date)
   );
 
   return {
