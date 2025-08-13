@@ -14,6 +14,12 @@ importers:
       '@11ty/eleventy-plugin-rss':
         specifier: ^2.0.4
         version: 2.0.4
+      markdown-it:
+        specifier: ^14.1.0
+        version: 14.1.0
+      markdown-it-regexp:
+        specifier: ^0.4.0
+        version: 0.4.0
 
 packages:
 
@@ -355,6 +361,9 @@ packages:
   luxon@3.7.1:
     resolution: {integrity: sha512-RkRWjA926cTvz5rAb1BqyWkKbbjzCGchDUIKMCUvNi17j6f6j8uHGDV82Aqcqtzd+icoYpELmG3ksgGiFNNcNg==}
     engines: {node: '>=12'}
+
+  markdown-it-regexp@0.4.0:
+    resolution: {integrity: sha512-0XQmr46K/rMKnI93Y3CLXsHj4jIioRETTAiVnJnjrZCEkGaDOmUxTbZj/aZ17G5NlRcVpWBYjqpwSlQ9lj+Kxw==}
 
   markdown-it@14.1.0:
     resolution: {integrity: sha512-a54IwgWPaeBCAAsv13YgmALOF1elABB08FxO9i+r4VFk5Vl4pKokRPeX8u5TCgSsPi6ec1otfLjdOpVcgbpshg==}
@@ -920,6 +929,8 @@ snapshots:
   list-to-array@1.1.0: {}
 
   luxon@3.7.1: {}
+
+  markdown-it-regexp@0.4.0: {}
 
   markdown-it@14.1.0:
     dependencies:

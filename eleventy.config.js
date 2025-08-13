@@ -1,11 +1,21 @@
-import pluginRss from "@11ty/eleventy-plugin-rss";
+import { feedPlugin } from "@11ty/eleventy-plugin-rss";
+import markdownIt from "markdown-it";
+import markdownItRegexp from "markdown-it-regexp";
+
+// Wikilink plugin: [[foo]] => <a href="/foo.html">foo</a>
+const wikilinkPlugin = markdownItRegexp(/\[\[([^\]]+)\]\]/g, (match) => {
+  // wikilink is an array of capture groups
+  const text = match[1];
+  const slug = text.trim().replace(/\s+/g, "-").toLowerCase();
+  return `<a href="/${slug}">${text}</a>`;
+});
 
 export default function (eleventyConfig) {
-  eleventyConfig.addPlugin(pluginRss, {
+  eleventyConfig.addPlugin(feedPlugin, {
     type: "atom", // or "rss", "json"
     outputPath: "/feed.xml",
     collection: {
-      name: "posts", // iterate over `collections.posts`
+      name: "notes", // iterate over `collections.notes`
       limit: 10, // 0 means no limit
     },
     metadata: {
@@ -24,7 +34,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter(
     "dateFormat",
     function (dateObj, format = "yyyy-LL-dd") {
-      return pluginRss.dateToRfc3339(dateObj).split("T")[0]; // Simple YYYY-MM-DD
+      return dateObj.toISOString().split("T")[0]; // Simple YYYY-MM-DD
     }
   );
 
@@ -37,6 +47,12 @@ export default function (eleventyConfig) {
       .getFilteredByGlob("content/**/*.md")
       .filter((item) => !item.inputPath.endsWith("index.md"))
       .sort((a, b) => b.date - a.date)
+  );
+
+  // Configure markdown-it with the wikilink plugin
+  eleventyConfig.setLibrary(
+    "md",
+    markdownIt({ html: true }).use(wikilinkPlugin)
   );
 
   return {
