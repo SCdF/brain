@@ -2,8 +2,9 @@
 permalink: feed.xml
 eleventyExcludeFromCollections: true
 ---
-{% set noteslist = collections.notes %}
-{{ noteslist | rssFeed({
+
+{% set items = collections.notes %}
+{{ items | rssFeed({
   title: "My Brain RSS",
   feedUrl: "https://brain.sdufresne.info/feed.xml",
   siteUrl: "https://brain.sdufresne.info"

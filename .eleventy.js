@@ -1,27 +1,20 @@
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 
 module.exports = function (eleventyConfig) {
-  // Copy images and static assets as-is
-  eleventyConfig.addPassthroughCopy("content/**/*.png");
-  eleventyConfig.addPassthroughCopy("content/**/*.jpg");
-  eleventyConfig.addPassthroughCopy("content/**/*.jpeg");
-  eleventyConfig.addPassthroughCopy("content/**/*.gif");
-
-  // Add RSS plugin
   eleventyConfig.addPlugin(pluginRss);
 
-  // Create a collection from all markdown files in content/
-  eleventyConfig.addCollection("notes", (collection) => {
-    return collection.getFilteredByGlob("content/**/*.md").sort((a, b) => {
-      return b.date - a.date; // newest first
-    });
-  });
+  // Copy images from your Obsidian vault through to the site
+  eleventyConfig.addPassthroughCopy("content/**/*.{png,jpg,jpeg,gif,svg,webp}");
+
+  // Collection of all markdown notes (newest first)
+  eleventyConfig.addCollection("notes", (api) =>
+    api.getFilteredByGlob("content/**/*.md").sort((a, b) => b.date - a.date)
+  );
 
   return {
     dir: {
-      input: "content", // where your markdown lives
+      input: "content", // process files in /content
       includes: "../_includes",
-      layouts: "../_layouts",
       output: "_site",
     },
     markdownTemplateEngine: "njk",

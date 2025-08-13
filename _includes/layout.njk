@@ -1,14 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>{{ title }}</title>
+  <meta charset="utf-8">
+  <title>{{ title or "My Brain" }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <h1>{{ title }}</h1>
-  <article>
-    {{ content | safe }}
-  </article>
-  <p><a href="/feed.xml">RSS Feed</a></p>
+  <main>
+    <h1>{{ title }}</h1>
+    <article>
+      {{ content | safe }}
+    </article>
+    <p><a href="/feed.xml">RSS</a></p>
+  </main>
 </body>
 </html>
