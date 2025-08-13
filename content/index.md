@@ -1,13 +1,13 @@
 ---
 layout: layout.njk
-title: My Brain
+title: Thoughts
 ---
 
 <ul>
 {% for note in collections.notes %}
   <li>
     <a href="{{ note.url }}">{{ note.data.title }}</a>
-    — {{ note.date | date("yyyy-LL-dd") }}
+    — {{ note.date | dateFormat }}
   </li>
 {% endfor %}
 </ul>
